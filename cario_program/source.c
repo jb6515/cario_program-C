@@ -27,6 +27,8 @@ typedef struct Carinfomation
 
 // 동적할당
 Cinfo *data;
+
+// 전역 변수
 int size = 0;
 int opt[10] = { 0 };
 
