@@ -19,16 +19,16 @@
 - 종료
 
 구현한 함수들
-int menu(void); // 메뉴를 불러오는 함수
-void carin(void); // 입차 함수
-void dataadd(char* cnum, int* time); // 입차시 데이터를 추가하는 함수
-void carout(void); // 출차 함수
-void carlist(void); // 입차한 차들의 리스트를 불러오는 함수
-void file_save(void); // 파일을 저장하는 함수
-void opt_save(void); // 옵션을 저장하는 함수
-void file_load(void); // 파일을 불러오는 함수
-void opt_load(void); // 옵션을 불러오는 함수
-void option_setting(void); // 옵션메뉴 함수
+- int menu(void); // 메뉴를 불러오는 함수
+- void carin(void); // 입차 함수
+- void dataadd(char* cnum, int* time); // 입차시 데이터를 추가하는 함수
+- void carout(void); // 출차 함수
+- void carlist(void); // 입차한 차들의 리스트를 불러오는 함수
+- void file_save(void); // 파일을 저장하는 함수
+- void opt_save(void); // 옵션을 저장하는 함수
+- void file_load(void); // 파일을 불러오는 함수
+- void opt_load(void); // 옵션을 불러오는 함수
+- void option_setting(void); // 옵션메뉴 함수
 
 입차시
 - 차량 번호를 입력받음
@@ -48,5 +48,5 @@ void option_setting(void); // 옵션메뉴 함수
 - 자동저장옵션이 켜져있을 경우 data.bin에 현재 데이터들을 기록
 
 옵션
-별도로 setting.dat파일에 이진형식으로 저장
-프로그램 시작시 옵션을 불러오고, 프로그램 종료시 옵션을 저장
+- 별도로 setting.dat파일에 이진형식으로 저장
+- 프로그램 시작시 옵션을 불러오고, 프로그램 종료시 옵션을 저장
