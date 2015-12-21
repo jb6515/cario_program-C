@@ -1,47 +1,47 @@
-// Çì´õ ¼±¾ğ
+// í—¤ë” ì„ ì–¸
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
-// ÇÔ¼ö ¼±¾ğ
-int menu(void);							// ¸Ş´º ÇÔ¼ö
-void carin(void);						// ÀÔÂ÷ ÇÔ¼ö
-void dataadd(char* cnum, int* time);	// ÀÔÂ÷½Ã µ¥ÀÌÅÍ¸¦ Ãß°¡ÇÏ´Â ÇÔ¼ö
-void carout(void);						// ÃâÂ÷ ÇÔ¼ö
-void carlist(void);						// ÀÔÂ÷ÇÑ Â÷·® ¸®½ºÆ®¸¦ º¸¿©ÁÖ´Â ÇÔ¼ö
-void file_save(void);					// ÇöÀç ÀÔÂ÷¸®½ºÆ®¸¦ ÀÌÁøÆÄÀÏ·Î ÀúÀåÇÏ´Â ÇÔ¼ö
-void opt_save(void);					// ÇöÀç ¿É¼ÇÀ» ÀÌÁøÆÄÀÏ·Î ÀúÀåÇÏ´Â ÇÔ¼ö
-void file_load(void);					// ÀÌÁøÆÄÀÏÀ» ÀÔÂ÷¸®½ºÆ®·Î ºÒ·¯¿À´Â ÇÔ¼ö
-void opt_load(void);					// ÀÌÁøÆÄÀÏ¿¡¼­ ÇöÀç ¿É¼ÇÀ¸·Î ºÒ·¯¿À´Â ÇÔ¼ö
-void option_setting(void);				// ¿É¼ÇÀ» ÄÑ°í ²ø ¼ö ÀÖ´Â ¸Ş´º¸¦ Á¦°øÇÏ´Â ÇÔ¼ö
+// í•¨ìˆ˜ ì„ ì–¸
+int menu(void);							// ë©”ë‰´ í•¨ìˆ˜
+void carin(void);						// ì…ì°¨ í•¨ìˆ˜
+void dataadd(char* cnum, int* time);				// ì…ì°¨ì‹œ ë°ì´í„°ë¥¼ ì¶”ê°€í•˜ëŠ” í•¨ìˆ˜
+void carout(void);						// ì¶œì°¨ í•¨ìˆ˜
+void carlist(void);						// ì…ì°¨í•œ ì°¨ëŸ‰ ë¦¬ìŠ¤íŠ¸ë¥¼ ë³´ì—¬ì£¼ëŠ” í•¨ìˆ˜
+void file_save(void);						// í˜„ì¬ ì…ì°¨ë¦¬ìŠ¤íŠ¸ë¥¼ ì´ì§„íŒŒì¼ë¡œ ì €ì¥í•˜ëŠ” í•¨ìˆ˜
+void opt_save(void);						// í˜„ì¬ ì˜µì…˜ì„ ì´ì§„íŒŒì¼ë¡œ ì €ì¥í•˜ëŠ” í•¨ìˆ˜
+void file_load(void);						// ì´ì§„íŒŒì¼ì„ ì…ì°¨ë¦¬ìŠ¤íŠ¸ë¡œ ë¶ˆëŸ¬ì˜¤ëŠ” í•¨ìˆ˜
+void opt_load(void);						// ì´ì§„íŒŒì¼ì—ì„œ í˜„ì¬ ì˜µì…˜ìœ¼ë¡œ ë¶ˆëŸ¬ì˜¤ëŠ” í•¨ìˆ˜
+void option_setting(void);					// ì˜µì…˜ì„ ì¼œê³  ëŒ ìˆ˜ ìˆëŠ” ë©”ë‰´ë¥¼ ì œê³µí•˜ëŠ” í•¨ìˆ˜
 
-// ±¸Á¶Ã¼ ¼±¾ğ
+// êµ¬ì¡°ì²´ ì„ ì–¸
 typedef struct Carinfomation
 {
-	char cnum[12];					// Â÷·® ¹øÈ£
-	int intime[3];					// ÀÔÂ÷½Ã°£ (½Ã°£, ºĞ, ÃÊ)
-	int outtime[3];					// ÃâÂ÷½Ã°£ (½Ã°£, ºĞ, ÃÊ)
+	char cnum[12];						// ì°¨ëŸ‰ ë²ˆí˜¸
+	int intime[3];						// ì…ì°¨ì‹œê°„ (ì‹œê°„, ë¶„, ì´ˆ)
+	int outtime[3];						// ì¶œì°¨ì‹œê°„ (ì‹œê°„, ë¶„, ì´ˆ)
 } Cinfo;
 
-// µ¿ÀûÇÒ´ç
+// ë™ì í• ë‹¹
 Cinfo *data;
 
-// Àü¿ª º¯¼ö ¼±¾ğ ¹× ÃÊ±âÈ­
-int size = 0;						// ÇöÀç ÀÔÂ÷ÇÑ Â÷·® ¼ö¸¦ ÃÊ±âÈ­
-int opt[10] = { 0 };				// ¿É¼ÇÀ» ÀúÀåÇÒ º¯¼ö¸¦ ÃÊ±âÈ­
+// ì „ì—­ ë³€ìˆ˜ ì„ ì–¸ ë° ì´ˆê¸°í™”
+int size = 0;							// í˜„ì¬ ì…ì°¨í•œ ì°¨ëŸ‰ ìˆ˜ë¥¼ ì´ˆê¸°í™”
+int opt[10] = { 0 };						// ì˜µì…˜ì„ ì €ì¥í•  ë³€ìˆ˜ë¥¼ ì´ˆê¸°í™”
 
-// ¸ŞÀÎ ÇÔ¼ö
+// ë©”ì¸ í•¨ìˆ˜
 int main(void)
 {
-	data = NULL;					// µ¿ÀûÇÒ´ç ÃÊ±âÈ­
-	int choice = 0;					// ¸Ş´º ¼±ÅÃÀ» ÀúÀåÇÒ º¯¼ö ÃÊ±âÈ­
-	opt_load();						// ÀúÀåµÈ ¿É¼ÇÀ» ºÒ·¯¿È
+	data = NULL;						// ë™ì í• ë‹¹ ì´ˆê¸°í™”
+	int choice = 0;						// ë©”ë‰´ ì„ íƒì„ ì €ì¥í•  ë³€ìˆ˜ ì´ˆê¸°í™”
+	opt_load();						// ì €ì¥ëœ ì˜µì…˜ì„ ë¶ˆëŸ¬ì˜´
 	while (1)
 	{
-		choice = menu();			// ¸Ş´ºÇÔ¼ö¸¦ ºÒ·¯¿Í ¼±ÅÃÇÑ ¸Ş´º¹øÈ£¸¦ choice¿¡ ÀúÀå
-		if (choice == 7)			// choice°¡ 7ÀÏ °æ¿ì
-			break;					// Á¾·á
-		switch (choice)				// 
+		choice = menu();				// ë©”ë‰´í•¨ìˆ˜ë¥¼ ë¶ˆëŸ¬ì™€ ì„ íƒí•œ ë©”ë‰´ë²ˆí˜¸ë¥¼ choiceì— ì €ì¥
+		if (choice == 7)				// choiceê°€ 7ì¼ ê²½ìš°
+			break;					// ì¢…ë£Œ
+		switch (choice)					// choiceê°’ì„ switch
 		{
 		case 1:
 			carin();
@@ -67,24 +67,24 @@ int main(void)
 	return 0;
 }
 
-int menu(void)					// ¸Ş´º Ãâ·Â ¹× ÀÔ·Â
+int menu(void)					// ë©”ë‰´ ì¶œë ¥ ë° ì…ë ¥
 {
 	int i = 0;
 	system("cls");
-	printf("¸Ş´º \n");
-	printf("1. ÀÔÂ÷\n");
-	printf("2. ÃâÂ÷\n");
-	printf("3. ¸ñ·Ï\n");
-	printf("4. ÀúÀå\n");
-	printf("5. ·Îµå\n");
-	printf("6. ¿É¼Ç\n");
-	printf("7. Á¾·á\n");
+	printf("ë©”ë‰´ \n");
+	printf("1. ì…ì°¨\n");
+	printf("2. ì¶œì°¨\n");
+	printf("3. ëª©ë¡\n");
+	printf("4. ì €ì¥\n");
+	printf("5. ë¡œë“œ\n");
+	printf("6. ì˜µì…˜\n");
+	printf("7. ì¢…ë£Œ\n");
 	scanf("%d", &i);
-	while (getchar() != '\n');		// ÀÔ·Â¹öÆÛ¸¦ ºñ¿ò
+	while (getchar() != '\n');		// ì…ë ¥ë²„í¼ë¥¼ ë¹„ì›€
 	return i;
 }
 
-void carin(void)				// ÀÔÂ÷
+void carin(void)				// ì…ì°¨
 {
 	int i;
 	struct Carinfomation car;
@@ -96,7 +96,7 @@ void carin(void)				// ÀÔÂ÷
 		file_load();
 
 	system("cls");
-	printf("Â÷·® ¹øÈ£ : ");
+	printf("ì°¨ëŸ‰ ë²ˆí˜¸ : ");
 	scanf("%s", car.cnum);
 	while (getchar() != '\n');
 
@@ -104,7 +104,7 @@ void carin(void)				// ÀÔÂ÷
 	{
 		if (strcmp(data[i].cnum, car.cnum) == 0)
 		{
-			printf("ÀÌ¹Ì ÀÔÂ÷ÇÑ Â÷·®ÀÔ´Ï´Ù.\n");
+			printf("ì´ë¯¸ ì…ì°¨í•œ ì°¨ëŸ‰ì…ë‹ˆë‹¤.\n");
 			system("pause");
 			return;
 		}
@@ -117,12 +117,12 @@ void carin(void)				// ÀÔÂ÷
 	car.intime[2] = t->tm_sec;
 
 	system("cls");
-	printf("Â÷·®¹øÈ£ : %s\n", car.cnum);
-	printf("ÀÔÂ÷½Ã°£ : %d½Ã %dºĞ %dÃÊ\n", car.intime[0], car.intime[1], car.intime[2]);
+	printf("ì°¨ëŸ‰ë²ˆí˜¸ : %s\n", car.cnum);
+	printf("ì…ì°¨ì‹œê°„ : %dì‹œ %dë¶„ %dì´ˆ\n", car.intime[0], car.intime[1], car.intime[2]);
 	dataadd(car.cnum, car.intime);
 	system("pause");
 	fp = fopen("log.txt", "a");
-	fprintf(fp, "%d½Ã %dºĞ %dÃÊ  %s ÀÔÂ÷\n", car.intime[0], car.intime[1], car.intime[2], car.cnum);
+	fprintf(fp, "%dì‹œ %dë¶„ %dì´ˆ  %s ì…ì°¨\n", car.intime[0], car.intime[1], car.intime[2], car.cnum);
 	fclose(fp);
 
 	if (opt[0] == 1)
@@ -161,7 +161,7 @@ void dataadd(char* cnum, int* time)
 			data[size - 1].intime[i] = time[i];
 
 	}
-	printf("µ¥ÀÌÅÍ Ãß°¡ ¼º°ø\n");
+	printf("ë°ì´í„° ì¶”ê°€ ì„±ê³µ\n");
 }
 
 void carout(void)
@@ -176,13 +176,13 @@ void carout(void)
 		file_load();
 
 	system("cls");
-	printf("Â÷·® ¹øÈ£ : ");
+	printf("ì°¨ëŸ‰ ë²ˆí˜¸ : ");
 	scanf("%s", cnum);
 	while (getchar() != '\n');
 
 	if (data == NULL)
 	{
-		printf("Â÷·® Á¤º¸°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.\n");
+		printf("ì°¨ëŸ‰ ì •ë³´ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.\n");
 		system("pause");
 		return;
 	}
@@ -197,25 +197,25 @@ void carout(void)
 			data[i].outtime[1] = t->tm_min;
 			data[i].outtime[2] = t->tm_sec;
 			system("cls");
-			printf("Â÷·®¹øÈ£ : %s\n", cnum);
-			printf("ÀÔÂ÷½Ã°£ : %d½Ã %dºĞ %dÃÊ\n", data[i].intime[0], data[i].intime[1], data[i].intime[2]);
-			printf("ÃâÂ÷½Ã°£ : %d½Ã %dºĞ %dÃÊ\n", data[i].outtime[0], data[i].outtime[1], data[i].outtime[2]);
+			printf("ì°¨ëŸ‰ë²ˆí˜¸ : %s\n", cnum);
+			printf("ì…ì°¨ì‹œê°„ : %dì‹œ %dë¶„ %dì´ˆ\n", data[i].intime[0], data[i].intime[1], data[i].intime[2]);
+			printf("ì¶œì°¨ì‹œê°„ : %dì‹œ %dë¶„ %dì´ˆ\n", data[i].outtime[0], data[i].outtime[1], data[i].outtime[2]);
 			system("pause");
 			break;
 		}
 		else if (i == size - 1)
 		{
-			printf("Â÷·® Á¤º¸°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.\n");
+			printf("ì°¨ëŸ‰ ì •ë³´ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.\n");
 			system("pause");
 			return;
 		}
 	}
 	fp = fopen("log.txt", "a");
-	fprintf(fp, "%d½Ã %dºĞ %dÃÊ  %s ÃâÂ÷\n", data[i].outtime[0], data[i].outtime[1], data[i].outtime[2], cnum);
+	fprintf(fp, "%dì‹œ %dë¶„ %dì´ˆ  %s ì¶œì°¨\n", data[i].outtime[0], data[i].outtime[1], data[i].outtime[2], cnum);
 	fclose(fp);
 
 	fp = fopen("complete.txt", "a");
-	fprintf(fp, "%s ÀÔÂ÷½Ã°£ : %d½Ã %dºĞ %dÃÊ ÃâÂ÷½Ã°£ : %d½Ã %dºĞ %dÃÊ\n", cnum, data[i].intime[0], data[i].intime[1], data[i].intime[2], data[i].outtime[0], data[i].outtime[1], data[i].outtime[2]);
+	fprintf(fp, "%s ì…ì°¨ì‹œê°„ : %dì‹œ %dë¶„ %dì´ˆ ì¶œì°¨ì‹œê°„ : %dì‹œ %dë¶„ %dì´ˆ\n", cnum, data[i].intime[0], data[i].intime[1], data[i].intime[2], data[i].outtime[0], data[i].outtime[1], data[i].outtime[2]);
 
 	fclose(fp);
 
@@ -242,9 +242,9 @@ void carlist(void)
 	system("cls");
 	if (opt[0] == 1)
 		file_load();
-	printf("Â÷·®¹øÈ£\tÀÔÂ÷½Ã°£\n");
+	printf("ì°¨ëŸ‰ë²ˆí˜¸\tì…ì°¨ì‹œê°„\n");
 	for (i = 0; i < size; i++)
-		printf("%s\t%d½Ã %dºĞ %dÃÊ\n", data[i].cnum, data[i].intime[0], data[i].intime[1], data[i].intime[2]);
+		printf("%s\t%dì‹œ %dë¶„ %dì´ˆ\n", data[i].cnum, data[i].intime[0], data[i].intime[1], data[i].intime[2]);
 	system("pause");
 }
 
@@ -289,30 +289,30 @@ void opt_load(void)
 
 void option_setting(void)
 {
-	char a[5] = "ÄÑÁü";
-	char b[5] = "²¨Áü";
+	char a[5] = "ì¼œì§";
+	char b[5] = "êº¼ì§";
 	char c[5];
 	int choice;
 	system("cls");
-	printf("   ¿É¼Ç\n\n");
+	printf("   ì˜µì…˜\n\n");
 	if (opt[0] == 0)
 		strcpy(c, b);
 	else
 		strcpy(c, a);
-	printf("1. ÀÚµ¿ÀúÀå (%s)\n", c);
-	printf("2. ÀúÀåµÈ µ¥ÀÌÅÍ »èÁ¦\n");
+	printf("1. ìë™ì €ì¥ (%s)\n", c);
+	printf("2. ì €ì¥ëœ ë°ì´í„° ì‚­ì œ\n");
 
 	scanf("%d", &choice);
 	switch (choice) {
 	case 1:
 		if (opt[0] == 0)
 		{
-			printf("ÀÚµ¿ ÀúÀå¿É¼Ç ÄÑÁü\n");
+			printf("ìë™ ì €ì¥ì˜µì…˜ ì¼œì§\n");
 			opt[0] = 1;
 		}
 		else
 		{
-			printf("ÀÚµ¿ ÀúÀå¿É¼Ç ²¨Áü\n");
+			printf("ìë™ ì €ì¥ì˜µì…˜ êº¼ì§\n");
 			opt[0] = 0;
 		}
 		break;
