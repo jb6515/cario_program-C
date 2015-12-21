@@ -301,6 +301,7 @@ void option_setting(void)
 		strcpy(c, a);
 	printf("1. 자동저장 (%s)\n", c);
 	printf("2. 저장된 데이터 삭제\n");
+	printf("3. 뒤로가기\n");
 
 	scanf("%d", &choice);
 	switch (choice) {
@@ -317,9 +318,13 @@ void option_setting(void)
 		}
 		break;
 	case 2:
+		
 		system("del data.dat");
 		system("del log.txt");
+		system("del complete.txt");
 		system("pause");
+		break;
+	case 3:
 		break;
 	}
 }
