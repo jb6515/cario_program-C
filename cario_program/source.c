@@ -2,48 +2,46 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-#pragma warning(disable:4996)
-#pragma warning(disable:4013)
 
 // 함수 선언
-int menu(void);
-void carin(void);
-void dataadd(char* cnum, int* time);
-void carout(void);
-void carlist(void);
-void file_save(void);
-void opt_save(void);
-void file_load(void);
-void opt_load(void);
-void option_setting(void);
+int menu(void);							// 메뉴 함수
+void carin(void);						// 입차 함수
+void dataadd(char* cnum, int* time);	// 입차시 데이터를 추가하는 함수
+void carout(void);						// 출차 함수
+void carlist(void);						// 입차한 차량 리스트를 보여주는 함수
+void file_save(void);					// 현재 입차리스트를 이진파일로 저장하는 함수
+void opt_save(void);					// 현재 옵션을 이진파일로 저장하는 함수
+void file_load(void);					// 이진파일을 입차리스트로 불러오는 함수
+void opt_load(void);					// 이진파일에서 현재 옵션으로 불러오는 함수
+void option_setting(void);				// 옵션을 켜고 끌 수 있는 메뉴를 제공하는 함수
 
 // 구조체 선언
 typedef struct Carinfomation
 {
-	char cnum[12];
-	int intime[3];
-	int outtime[3];
+	char cnum[12];					// 차량 번호
+	int intime[3];					// 입차시간 (시간, 분, 초)
+	int outtime[3];					// 출차시간 (시간, 분, 초)
 } Cinfo;
 
 // 동적할당
 Cinfo *data;
 
-// 전역 변수
-int size = 0;
-int opt[10] = { 0 };
+// 전역 변수 선언 및 초기화
+int size = 0;						// 현재 입차한 차량 수를 초기화
+int opt[10] = { 0 };				// 옵션을 저장할 변수를 초기화
 
 // 메인 함수
 int main(void)
 {
-	data = NULL;
-	int choice = 0;
-	opt_load();
+	data = NULL;					// 동적할당 초기화
+	int choice = 0;					// 메뉴 선택을 저장할 변수 초기화
+	opt_load();						// 저장된 옵션을 불러옴
 	while (1)
 	{
-		choice = menu();
-		if (choice == 7)
-			break;
-		switch (choice)
+		choice = menu();			// 메뉴함수를 불러와 선택한 메뉴번호를 choice에 저장
+		if (choice == 7)			// choice가 7일 경우
+			break;					// 종료
+		switch (choice)				// 
 		{
 		case 1:
 			carin();
