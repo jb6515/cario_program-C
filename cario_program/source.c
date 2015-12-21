@@ -36,12 +36,12 @@ int main(void)
 	data = NULL;						// 동적할당 초기화
 	int choice = 0;						// 메뉴 선택을 저장할 변수 초기화
 	opt_load();						// 저장된 옵션을 불러옴
-	while (1)
+	while (1)						// 무한루프
 	{
 		choice = menu();				// 메뉴함수를 불러와 선택한 메뉴번호를 choice에 저장
 		if (choice == 7)				// choice가 7일 경우
 			break;					// 종료
-		switch (choice)					// choice값을 switch
+		switch (choice)					// choice값을 switch를 사용하여 해당하는 함수를 불러옴
 		{
 		case 1:
 			carin();
@@ -63,13 +63,13 @@ int main(void)
 			break;
 		}
 	}
-	opt_save();
-	return 0;
+	opt_save();						// 프로그램 종료전에 현재옵션을 option.dat에 저장함
+	return 0;						// 프로그램 종료
 }
 
-int menu(void)					// 메뉴 출력 및 입력
+int menu(void)							// 메뉴 출력 및 입력
 {
-	int i = 0;
+	int i = 0;						// 
 	system("cls");
 	printf("메뉴 \n");
 	printf("1. 입차\n");
